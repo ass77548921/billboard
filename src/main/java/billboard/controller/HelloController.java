@@ -19,7 +19,12 @@ public class HelloController {
 		
 		
 		System.out.println(service.findAll());
-		return new ModelAndView("hello");
+		ModelAndView model = new ModelAndView();
+		model.setViewName("hello");
+		model.addObject("aass",service.findAll());
+		
+		
+		return model;
 	}
 
 }

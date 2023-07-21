@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 
 
 
+
+
 @Entity
 @Table(name = "list")
 public class list {
