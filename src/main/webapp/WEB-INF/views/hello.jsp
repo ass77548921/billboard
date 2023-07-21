@@ -9,22 +9,33 @@
 	<title>HelloWorld</title>
 	</head>
 	<body>
-	  <h1>Hello World!! Spring MVC</h1>
-	  <table><c:if test="${aass.size()>0}">
-	  	<thead>
-	  		<tr>
-	  			<th> test1</th>
-	  			<th> test2</th>
-	  		</tr></thead>
-	  		<tbody>
-	  		<c:forEach items="${aass}" var="result" varStatus="s">
-						<tr>
-							<td>${result.id}</td>
-							<td>${result.title}</td>
-							
-						</tr>
-					</c:forEach>
-	  		</tbody></c:if>
-	  </table>
+		<div>
+		  <table id="billboard_table"><c:if test="${aass.size()>0}">
+		  	<thead>
+		  		<tr>
+		  			<th> 標題</th>
+		  			<th> 發佈日期</th>
+		  			<th> 截止日期</th>
+		  			<th> 修改</th>
+		  			<th> 刪除</th>
+		  		</tr></thead>
+		  		<tbody>
+		  		<c:forEach items="${aass}" var="result" varStatus="s">
+							<tr>
+								<td>${result.title}</td>
+								<td>${result.publishdate}</td>
+								<td>${result.enddate}</td>
+								<td>a</td>
+								<td>b</td>
+							</tr>
+						</c:forEach>
+		  		</tbody></c:if>
+		  </table>
+	  	</div>
+	  	<div>
+	  		<button onclick="add()">新增</button>
+	  		<button onclick="deletechoose()">刪除</button>
+	  	</div>
+	  
 	</body>
 </html>

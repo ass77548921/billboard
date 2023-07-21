@@ -13,7 +13,7 @@ public class HelloController {
 	@Autowired
 	private listService service;
 	
-	@RequestMapping("hello")
+	@RequestMapping("/home")
 	public ModelAndView hello() {
 		
 		
