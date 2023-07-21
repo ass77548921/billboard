@@ -18,7 +18,6 @@ public class HelloController {
 		
 		
 		
-		System.out.println(service.findAll());
 		ModelAndView model = new ModelAndView();
 		model.setViewName("hello");
 		model.addObject("aass",service.findAll());
