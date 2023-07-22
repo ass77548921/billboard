@@ -1,5 +1,6 @@
 package billboard.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -65,16 +66,21 @@ public class list {
 		this.context = context;
 	}
 
-	public Date getPublishdate() {
-		return publishdate;
+	public String getPublishdate() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		return sdf.format(publishdate);
 	}
 
 	public void setPublishdate(Date publishdate) {
 		this.publishdate = publishdate;
 	}
 
-	public Date getEnddate() {
-		return enddate;
+	public String getEnddate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		return sdf.format(enddate);
 	}
 
 	public void setEnddate(Date enddate) {

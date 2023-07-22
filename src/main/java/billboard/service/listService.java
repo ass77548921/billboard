@@ -18,4 +18,12 @@ public class listService {
 		return dao.findAll();
 	}
 	
+	public list findById(Integer id) {
+		return dao.findById(id);
+	}
+	
+	public void deleteById(list data) {
+		dao.deleteById(data);
+	}
+	
 }

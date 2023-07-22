@@ -27,6 +27,23 @@ public class listdaoImpl implements listdao{
 	}
 	
 	
+	@Override
+	@Transactional
+	public list findById(Integer id) {
+		String sql = "SELECT * FROM list Where id="+id;
+		 return sessionFactory.getCurrentSession().createNativeQuery(sql, list.class).getSingleResult();
+		
+	}
+	
+	@Override
+	@Transactional
+	public void deleteById(list data) {
+		sessionFactory.getCurrentSession().delete(data);
+		 
+		
+	}
+	
+	
 
 	
 	

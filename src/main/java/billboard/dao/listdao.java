@@ -8,5 +8,7 @@ public interface listdao {
 
 	
 	List<list> findAll();
+	list findById(Integer id);
 	
+	void deleteById(list data);
 }
