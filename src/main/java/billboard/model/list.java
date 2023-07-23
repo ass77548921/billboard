@@ -1,9 +1,15 @@
 package billboard.model;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
@@ -16,7 +22,8 @@ import javax.persistence.*;
 public class list {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private Integer id;
 	
 	@Column(name="title")
@@ -29,10 +36,12 @@ public class list {
 	private String context;
 	
 	@Column(name="publishdate")
-	private Date publishdate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private LocalDateTime  publishdate;
 	
 	@Column(name="enddate")
-	private Date enddate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	private LocalDateTime  enddate;
 
 	public Integer getId() {
 		return id;
@@ -65,33 +74,37 @@ public class list {
 	public void setContext(String context) {
 		this.context = context;
 	}
-
+	
 	public String getPublishdate() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-		return sdf.format(publishdate);
+		return publishdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	}
 
-	public void setPublishdate(Date publishdate) {
+	public void setPublishdate(LocalDateTime  publishdate) {
 		this.publishdate = publishdate;
 	}
-
+	
+	
+	
 	public String getEnddate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-		return sdf.format(enddate);
+		
+		return enddate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	}
 
-	public void setEnddate(Date enddate) {
+	public void setEnddate(LocalDateTime  enddate) {
 		this.enddate = enddate;
 	}
+
 
 	@Override
 	public String toString() {
 		return "list [id=" + id + ", title=" + title + ", publisher=" + publisher + ", context=" + context
 				+ ", publishdate=" + publishdate + ", enddate=" + enddate + "]";
 	}
+
+	
 	
 	
 	

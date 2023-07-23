@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>	
@@ -37,42 +37,91 @@
         </div>
 	</div>
 		
-<div class="container">
-	<div class="" id="detail"  aria-hidden="true">
-				<c:choose><c:when test="">
-			  	<div >
-			  		<span>標題</span><input id="title" type="text" value="" readonly="readonly" disabled="disabled">
+	<div class="container">
+				
+				<c:choose>
+				<c:when test="${Label=='revise'}">
+			  	<form action="./reviseDataUpdate" method="post">
+			  	 <input type="hidden" name="id" value="${data.id}" />
+			  	<div class="detailList">
+			  		<span>標題:</span><input type="text" id="title" name="title" value="${data.title}" required/>
 			  	</div>
-				<div >
-			  		<span>發布日期</span><input id="startdate" type="text" value="" readonly="readonly" disabled="disabled">
+				<div class="detailList">
+			  		<span>發布日期:</span> <input type="datetime-local"  step="1" id="publishdate" name="publishdate"  value="${data.publishdate}" required/>
 			  	</div>
-			  	<div >
-			  		<span>截止日期</span><input id="enddate" type="text" value="" readonly="readonly" disabled="disabled">
+			  	<div class="detailList">
+			  		<span>截止日期:</span><input type="datetime-local" step="1" id="enddate" name="enddate" value="${data.enddate}" required/><br/>
 			  	</div>
-			  	<div >
-			  		<span>發布者</span><input id="publisher" type="text" value="" readonly="readonly" disabled="disabled">
+			  	<div class="detailList">
+			  		<span>發布者:</span> <input type="text" id="publisher" name="publisher" value="${data.publisher}" required/><br/>
 			  	</div>
-			  	<div >
-			  		<span>公布內容</span>
-			  		<textarea id=contexttext rows="4" cols="50" readonly="readonly" disabled="disabled">
-					
-					</textarea>
+			  	<div class="detailList">
+			  		<span>公布內容:</span>
+			  	 	<textarea id="context" name="context" rows="10" cols="50" required>${data.context}</textarea><br/>
 			  	</div>
-			  </div>
+			        
+			       
+				<div class="d-flex align-items-center justify-content-around">
+					  <button type="submit"  class="btn btn-primary">修改</button>
+			
+					  <button  id="back" type="button" class="btn btn-secondary">返回</button>
+			
+				</div>
+			      
+			    </form>
 			</c:when>
 			
+			<c:otherwise>
+				<form action="./addDataSave" method="post">
+				  	
+				  	<div class="detailList">
+				  		<span>標題:</span><input type="text" id="title" name="title" value="" required/>
+				  	</div>
+					<div class="detailList">
+				  		<span>發布日期:</span> <input type="datetime-local" id="publishdate" name="publishdate" value="" required/>
+				  	</div>
+				  	<div class="detailList">
+				  		<span>截止日期:</span><input type="datetime-local" id="enddate" name="enddate" value="" required/><br/>
+				  	</div>
+				  	<div class="detailList">
+				  		<span>發布者:</span> <input type="text" id="publisher" name="publisher" value="" required/><br/>
+				  	</div>
+				  	<div class="detailList">
+				  		<span>公布內容:</span>
+				  	 	<textarea id="context" name="context" rows="10" cols="50" required></textarea><br/>
+				  	</div>
+				        
+				       
+					<div class="d-flex align-items-center justify-content-around">
+						  <button type="submit"  class="btn btn-primary">新增</button>
+				
+						  <button  id="back" type="button" class="btn btn-secondary">返回</button>
+				
+					</div>
+				      
+				    </form>
+			
+				</c:otherwise>
 			
 			</c:choose>
-
+		
 		
 
-  </div>
+			
 
+  		</div>
+			
 		
 		
 		
 
 
 </body>
+<script>
+	$('#back').on('click',function(){
+		location.href='./home'
+	})
+
+</script>
 
 </html>

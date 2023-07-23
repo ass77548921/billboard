@@ -1,13 +1,20 @@
 package billboard.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import billboard.model.list;
@@ -41,11 +48,11 @@ public class billboardController {
 	
 	
 	@GetMapping("/reviseData")
-	public ModelAndView reviseDataPage(@RequestBody list data) {
+	public ModelAndView reviseDataPage(@RequestParam(value = "id") Integer id) {
 		
 		ModelAndView model = new ModelAndView();
 		model.addObject("Label", "revise");
-		data=service.findById(data.getId());
+		list data=service.findById(id);
 		model.addObject("data", data);
 		model.setViewName("detail");
 		
@@ -54,7 +61,7 @@ public class billboardController {
 	}
 	
 	@PostMapping("/reviseDataUpdate")
-	public String reviseDataUpdate(@RequestBody list data) {
+	public String reviseDataUpdate(@ModelAttribute("billboard") list data) {
 		
 		service.updateData(data);
 		
@@ -68,7 +75,7 @@ public class billboardController {
 	public ModelAndView addDataPage() {
 		
 		ModelAndView model = new ModelAndView();
-		model.addObject("Label", "revise");
+		model.addObject("Label", "add");
 		model.setViewName("detail");
 		
 		
@@ -78,7 +85,9 @@ public class billboardController {
 	
 	
 	@PostMapping("/addDataSave")
-	public String getNewData(@RequestBody list data) {
+	public String getNewData(@ModelAttribute("billboard") list data) {
+		
+		System.out.println("tes");
 		service.savaData(data);
 		
 		
@@ -87,7 +96,16 @@ public class billboardController {
 	
 	
 	
-	
+	@DeleteMapping("/deleteSelect")
+	public ResponseEntity<?> deleteById(@RequestBody Map<String, Object> data) {
+		
+		
+		List<String>  idList = new ArrayList<String>((Collection<String>)data.get("id"));
+		for(String id:idList) {
+			service.deleteById(id);
+		}
+		return ResponseEntity.ok(true);
+	}
 	
 
 	

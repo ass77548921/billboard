@@ -25,6 +25,9 @@ public class listService {
 	public void deleteById(list data) {
 		dao.deleteById(data);
 	}
+	public void deleteById(String id) {
+		dao.deleteById(id);
+	}
 	
 	public void savaData(list data) {
 		dao.saveData(data);

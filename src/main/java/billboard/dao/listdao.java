@@ -11,6 +11,7 @@ public interface listdao {
 	list findById(Integer id);
 	
 	void deleteById(list data);
+	void deleteById(String id);
 	void saveData(list data);
 	void updateData(list data);
 }

@@ -1,0 +1,46 @@
+
+.title{
+	min-width:200px; 
+}
+.udtitle{
+	text-align: center;
+}
+.add{
+	background-color:#988989;
+	
+}
+.btntd{
+	text-align: center
+}
+.table tbody tr td:nth-child(2):hover {
+	cursor: pointer;
+	color: blue;
+}
+.table tbody tr td input[type="checkbox"] {
+	margin-top: 7px;
+    margin-left: 11px;
+}
+.navdiv{
+	padding-left: 0px;
+}
+#homeImg{
+	width: 63px;
+}
+
+#enddel{
+	margin-left: -50%;
+}
+.detailList{
+	display: flex;
+	justify-content: center; 
+	margin-bottom: 10px;
+}
+.detailList input,textarea{
+	margin-left: 10px;
+	width: 81%;
+}
+.detailList span{
+	width: 15%;
+}
+
+

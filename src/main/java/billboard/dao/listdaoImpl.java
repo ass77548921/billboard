@@ -2,7 +2,7 @@ package billboard.dao;
 
 import java.util.List;
 
-
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,7 +22,7 @@ public class listdaoImpl implements listdao{
 	@Override
 	@Transactional
 	public List<list> findAll() {
-		 return sessionFactory.getCurrentSession().createNativeQuery("SELECT * FROM list ", list.class).getResultList();
+		 return sessionFactory.getCurrentSession().createNativeQuery("SELECT * FROM list order by publishdate desc", list.class).getResultList();
 		
 	}
 	
@@ -30,8 +30,8 @@ public class listdaoImpl implements listdao{
 	@Override
 	@Transactional
 	public list findById(Integer id) {
-		String sql = "SELECT * FROM list Where id="+id;
-		 return sessionFactory.getCurrentSession().createNativeQuery(sql, list.class).getSingleResult();
+		System.out.println(id);
+		 return sessionFactory.getCurrentSession().get(list.class, id);
 		
 	}
 	
@@ -42,6 +42,20 @@ public class listdaoImpl implements listdao{
 		 
 		
 	}
+	
+	@Override
+	@Transactional
+	public void deleteById(String id) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		list data = (list)session.load(list.class,Integer.parseInt(id));
+		System.out.println(data);
+		sessionFactory.getCurrentSession().delete(data);;
+		 
+		
+	}
+	
+	
 
 
 	@Override

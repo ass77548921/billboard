@@ -15,7 +15,7 @@
 	<script src="webjars/bootstrap/5.1.1/js/bootstrap.bundle.js" ></script>
 	<link href="webjars/bootstrap/5.1.1/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<link href="webjars/bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/style.css?v=<?=time();?>" rel="stylesheet" type="text/css">
+	<link href="css/style.css?v=<?=time()?>" rel="stylesheet" type="text/css">
 	
 	</head>
 	
@@ -52,6 +52,7 @@
 					
 						<thead>
 							<tr>
+								<th scope="col" class="text-nowrap">選擇</th>
 								<th scope="col" class="text-nowrap title">標題</th>
 								<th scope="col" class="text-nowrap">發布日期</th>
 								<th scope="col" class="text-nowrap">截止日期</th>
@@ -64,10 +65,11 @@
 					  <c:forEach items="${aass}" var="result" varStatus="s">
 					  	<tbody>	
 							<tr>
-							  <td scope="row" onclick="showlist(${result.id})" ><p>${result.title}</p></td>
+								<td><input type="checkbox" name="chkId" value="${result.id}"></td>
+							  	<td scope="row" onclick="showlist(${result.id})" ><p>${result.title}</p></td>
 								<td>${result.publishdate}</td>
 								<td>${result.enddate}</td>
-								<td class="btntd"><button type="button" class="btn btn-info" title="修改"><i class="bi bi-pen"></i></button></td>
+								<td class="btntd"><button onclick="reviseById(${result.id})" type="button" class="btn btn-info" title="修改"><i class="bi bi-pen"></i></button></td>
 								<td class="btntd"><button type="button" class="btn btn-danger" onclick="deleteById(${result.id})"  ><i class="bi bi-trash-fill" title="刪除"></i></button></td>
 							</tr>
 						</tbody>
@@ -89,9 +91,9 @@
   </div>
 
 		<div class="d-flex align-items-center justify-content-around">
-		  <button  type="button" class="btn btn-primary">新增</button>
+		  <button id="add" type="button" class="btn btn-primary">新增</button>
 
-		  <button  id="enddel" type="button" class="btn btn-danger">刪除</button>
+		  <button  id="enddel" type="button" class="btn btn-danger" style="display:none">刪除</button>
 
 	  </div>
 		<div class="modal fade" id="deleteWarning" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -113,7 +115,26 @@
 		  </div>
 		</div>
 		
-		<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="deleteAll" aria-hidden="true">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">刪除警告</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+			  <div class="modal-body">
+				<p>確定要刪除已選擇項目嗎?</p>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+				<button id="deleteAllSure" type="button" class="btn btn-primary">確定</button>
+			  </div>
+			 
+			</div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="deleteByid" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 			  <div class="modal-header">
@@ -122,19 +143,19 @@
 			  </div>
 			  <div class="modal-body">
 			  	<div class="detailList">
-			  		<span>標題</span><input id="title" type="text" value="" readonly="readonly" disabled="disabled">
+			  		<span>標題:</span><input id="title" type="text" value="" readonly="readonly" disabled="disabled">
 			  	</div>
 				<div class="detailList">
-			  		<span>發布日期</span><input id="startdate" type="text" value="" readonly="readonly" disabled="disabled">
+			  		<span>發布日期:</span><input id="startdate" type="text" value="" readonly="readonly" disabled="disabled">
 			  	</div>
 			  	<div class="detailList">
-			  		<span>截止日期</span><input id="enddate" type="text" value="" readonly="readonly" disabled="disabled">
+			  		<span>截止日期:</span><input id="enddate" type="text" value="" readonly="readonly" disabled="disabled">
 			  	</div>
 			  	<div class="detailList">
-			  		<span>發布者</span><input id="publisher" type="text" value="" readonly="readonly" disabled="disabled">
+			  		<span>發布者:</span><input id="publisher" type="text" value="" readonly="readonly" disabled="disabled">
 			  	</div>
 			  	<div class="detailList">
-			  		<span>公布內容</span>
+			  		<span>公布內容:</span>
 			  		<textarea id=contexttext rows="4" cols="50" readonly="readonly" disabled="disabled">
 					
 					</textarea>
@@ -151,6 +172,50 @@
 </div>		
 
 <script>
+
+	$('input[name=chkId]').on('click',function(){
+		if($('input[name=chkId]:checked').length<=0){
+			$('#enddel').css("display", "none");;
+		}else{
+			$('#enddel').css("display", "block")
+		}
+		
+	})
+	$('#enddel').on("click",function(){
+		$('#deleteAll').modal('show')	
+	})
+	
+	$('#deleteAllSure').on("click",function(){
+		var data=Array()
+		$("input[name=chkId]:checked").each(function(){
+			data.push($(this).val());
+		});
+		
+		$.ajax({
+			type: 'Delete',
+			  url: './deleteSelect',
+			  data: JSON.stringify({
+                "id":data
+                }),
+			  contentType:'application/json',
+			  success: function(data){
+				  location.reload();
+			  }
+			});
+		
+	})
+	
+	
+
+	$('#add').on("click",function(){
+		location.href='./addData'
+	
+	})
+	
+
+	function reviseById(e){
+		location.href='./reviseData?id='+e;
+	}
 
 	function deleteById(e){
 		$('#deleteid').val(e);
@@ -177,7 +242,24 @@
 		
 		
 	})
-
+	
+	
+	
+	function rejectAll() {
+		var checkBoxs = $('input[name=chkId]:checked');
+		if (checkBoxs.length == 0) {
+			showAlert("請先選取資料!");
+		} else {
+			var identifier = "";
+			$('input[name=chkId]:checked').each(function() {
+				identifier += (this.value);
+				identifier += ",<br/>"
+			});
+			$('#rejectId').html(identifier);
+			$('#dialogReject').dialog("open");
+			$(".mask").show();	
+		};
+	}
 
 	function showlist(e){
 		
@@ -205,7 +287,13 @@
 		let date = new Date(d)
 		let year = date.getFullYear()
 		let month = date.getMonth()+1
+		if(month<10){
+			month='0'+month
+		 }
 		let day = date.getDate()
+		if(day<10){
+			day='0'+day
+		 }
 		let hour = date.getHours()
 		 if(hour<10){
 			 hour='0'+hour
