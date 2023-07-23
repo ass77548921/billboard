@@ -42,8 +42,21 @@ public class listdaoImpl implements listdao{
 		 
 		
 	}
+
+
+	@Override
+	@Transactional
+	public void saveData(list data) {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().save(data);
+	}
 	
-	
+	@Override
+	@Transactional
+	public void updateData(list data) {
+		// TODO Auto-generated method stub
+		sessionFactory.getCurrentSession().update(data);
+	}
 
 	
 	

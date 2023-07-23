@@ -26,4 +26,13 @@ public class listService {
 		dao.deleteById(data);
 	}
 	
+	public void savaData(list data) {
+		dao.saveData(data);
+	}
+	
+	public void updateData(list data) {
+		dao.updateData(data);
+	}
+	
+	
 }
