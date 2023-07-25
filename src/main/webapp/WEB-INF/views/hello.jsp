@@ -15,7 +15,7 @@
 	<script src="webjars/bootstrap/5.1.1/js/bootstrap.bundle.js" ></script>
 	<link href="webjars/bootstrap/5.1.1/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<link href="webjars/bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/style.css?v=<?=time()?>" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
 	
 	</head>
 	
@@ -29,7 +29,7 @@
 		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent1">
 			    <ul class="navbar-nav mr-auto">
-			      <li class="nav-item active"> <a class="nav-link" href="#">公布欄 <span class="sr-only">(current)</span></a> </li>
+			      <li class="nav-item active"> <a class="nav-link" href="#">公布欄 </a> </li>
 			      
 		        </ul>
 		    </div>
@@ -79,7 +79,7 @@
 					<tbody>
 							<tr>
 							 
-								<td scope="row" colspan="5" style="text-align: center;">No Data</td>
+								<td scope="row" colspan="6" style="text-align: center;">No Data</td>
 								
 							</tr>
 								
@@ -134,40 +134,7 @@
 		  </div>
 		</div>
 		
-		<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="deleteByid" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title">詳細內容</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			  </div>
-			  <div class="modal-body">
-			  	<div class="detailList">
-			  		<span>標題:</span><input id="title" type="text" value="" readonly="readonly" disabled="disabled">
-			  	</div>
-				<div class="detailList">
-			  		<span>發布日期:</span><input id="startdate" type="text" value="" readonly="readonly" disabled="disabled">
-			  	</div>
-			  	<div class="detailList">
-			  		<span>截止日期:</span><input id="enddate" type="text" value="" readonly="readonly" disabled="disabled">
-			  	</div>
-			  	<div class="detailList">
-			  		<span>發布者:</span><input id="publisher" type="text" value="" readonly="readonly" disabled="disabled">
-			  	</div>
-			  	<div class="detailList">
-			  		<span>公布內容:</span>
-			  		<textarea id=contexttext rows="4" cols="50" readonly="readonly" disabled="disabled">
-					
-					</textarea>
-			  	</div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-				
-			  </div>
-			</div>
-		  </div>
-		</div>
+		
 
 </div>		
 
@@ -263,26 +230,12 @@
 
 	function showlist(e){
 		
-		$.ajax({
-			  type: 'POST',
-			  url: './getDetail',
-			  data: JSON.stringify({
-                  "id":e
-                  }),
-			  contentType:'application/json',
-			  success: function(data){
-				  $('#title').val(data.title);
-					$('#startdate').val(dataFormat(data.publishdate));
-					$('#enddate').val(dataFormat(data.enddate));
-					$('#publisher').val(data.publisher);
-					$('#contexttext').val(data.context);
-					$('#detail').modal('show');
-			  }
-			});
+		location.href="./detail?id="+e;
 		
 		
 		
 	}
+	
 	function dataFormat(d){
 		let date = new Date(d)
 		let year = date.getFullYear()

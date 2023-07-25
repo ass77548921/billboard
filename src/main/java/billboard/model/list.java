@@ -35,6 +35,9 @@ public class list {
 	@Column(name="context")
 	private String context;
 	
+	@Column(name="url")
+	private String url;
+	
 	@Column(name="publishdate")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime  publishdate;
@@ -97,6 +100,16 @@ public class list {
 		this.enddate = enddate;
 	}
 
+	
+	
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	@Override
 	public String toString() {
