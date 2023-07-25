@@ -41,6 +41,10 @@
 				
 				<c:choose>
 				<c:when test="${Label=='revise'}">
+				 <ul id="clothingnav1" style="margin-bottom: 13px;" class="nav nav-tabs" role="tablist">
+				      <li class="nav-item"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">修改內容</a> </li>
+				      
+			    </ul>
 			  	<form action="./reviseDataUpdate" method="post" enctype="multipart/form-data">
 			  	 <input type="hidden" name="id" value="${data.id}" />
 			  	<div class="detailList">
@@ -79,7 +83,11 @@
 			    </form>
 			</c:when>
 			<c:when test="${Label=='detail'}">
-			  
+			  <ul id="clothingnav1" style="margin-bottom: 13px;" class="nav nav-tabs" role="tablist">
+				      <li class="nav-item"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">詳細內容</a> </li>
+				      
+			    </ul>
+			   
 			  	
 			  	<div class="detailList">
 			  		<span>標題:</span><input type="text" id="title" name="title" value="${data.title}" disabled="true"  required/>
@@ -115,6 +123,10 @@
 			</c:when>
 			
 			<c:otherwise>
+			 <ul id="clothingnav1" style="margin-bottom: 13px;" class="nav nav-tabs" role="tablist">
+				      <li class="nav-item"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">新增資料</a> </li>
+				      
+			    </ul>
 				<form action="./addDataSave" method="post" enctype="multipart/form-data">
 				  	
 				  	<div class="detailList">
